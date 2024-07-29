@@ -9,19 +9,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.19.2",
     "express-session": "^1.17.1",
+    "mongoose": "^5.11.18",
     "nodemailer": "^6.9.13",
     "passport": "^0.5.3",
-    "passport-local": "^1.0.0",
-    "mongoose": "^5.11.18",
-    "bcrypt": "^5.0.1",
-    "dotenv": "^8.2.0"
+    "passport-local": "^1.0.0"
   },
   "engines": {
     "node": ">=20.0.0"
   },
-  "description": ""
+  "description": "A project for 2FA and authentication",
+  "keywords": [
+    "2FA",
+    "authentication",
+    "nodejs",
+    "express",
+    "mongodb"
+  ]
 }

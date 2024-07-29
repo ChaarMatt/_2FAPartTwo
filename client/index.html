@@ -3,19 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Authentication Page</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="loginContainer">
     <h2>Login</h2>
     <form id="loginForm">
-        <label for="username"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="username" id="username" required>
-        <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" id="password" required>
-        <button type="button" onclick="saveCredentials()">Login</button>
+        <label for="loginUsername"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="loginUsername" id="loginUsername" required>
+        <label for="loginPassword"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="loginPassword" id="loginPassword" required>
+        <button type="button" onclick="login()">Login</button>
+        <p>Don't have an account? <a href="#" onclick="showSignupForm()">Sign up here</a></p>
+    </form>
+</div>
+
+<div class="container" id="signupContainer" style="display:none;">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+        <label for="signupUsername"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="signupUsername" id="signupUsername" required>
+        <label for="signupPassword"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="signupPassword" id="signupPassword" required>
+        <button type="button" onclick="signup()">Sign Up</button>
+        <p>Already have an account? <a href="#" onclick="showLoginForm()">Login here</a></p>
     </form>
 </div>
 
@@ -28,6 +41,6 @@
     </form>
 </div>
 
-<script src="script.js"></script>
+<script src="./script.js"></script>
 </body>
 </html>

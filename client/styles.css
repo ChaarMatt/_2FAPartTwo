@@ -34,7 +34,13 @@ body {
     text-align: center;
 }
 
-h2 {
+h1, h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #ddd;
     margin-bottom: 20px;
 }
 
@@ -45,7 +51,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="number"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;

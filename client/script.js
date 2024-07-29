@@ -1,55 +1,81 @@
-function saveCredentials() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+function showSignupForm() {
+    document.getElementById("loginContainer").style.display = "none";
+    document.getElementById("signupContainer").style.display = "block";
+}
 
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
+function showLoginForm() {
+    document.getElementById("loginContainer").style.display = "block";
+    document.getElementById("signupContainer").style.display = "none";
+}
 
-    // Generate a random 2FA code
-    const twoFACode = Math.floor(100000 + Math.random() * 900000).toString();
-    localStorage.setItem("twoFACode", twoFACode);
+async function signup() {
+    const username = document.getElementById('signupUsername').value;
+    const password = document.getElementById('signupPassword').value;
 
-    // Send the 2FA code to the user's email
-    fetch('http://localhost:3000/send-2fa-code', {
+    try {
+        const response = await fetch('/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+
+        alert('Signup successful, please login.');
+    } catch (error) {
+        alert('Error during signup: ' + error.message);
+    }
+}
+
+async function login() {
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+
+    try {
+        const response = await fetch('/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+
+        window.location.href = '/auth/success';
+    } catch (error) {
+        alert('Error during login: ' + error.message);
+    }
+}
+
+function verify2FA() {
+    const code = document.getElementById("2faCode").value;
+
+    fetch('http://localhost:3000/auth/verify-2fa', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, twoFACode })
+        body: JSON.stringify({ code })
     })
         .then(response => {
             if (response.ok) {
-                document.getElementById("loginForm").style.display = "none";
-                document.getElementById("2faSection").style.display = "block";
+                alert('2FA verification successful!');
+                // Redirect to the next page
+                // window.location.href = "/dashboard";
             } else {
                 return response.text().then(text => { throw new Error(text) });
             }
         })
         .catch(error => {
-            console.error('Error during 2FA code send:', error);
-            alert('Failed to send 2FA code: ' + error.message);
+            console.error('Error during 2FA verification:', error);
+            alert('Failed to verify 2FA: ' + error.message);
         });
 }
 
-function verify2FA() {
-    const inputCode = document.getElementById("2faCode").value;
-    const storedCode = localStorage.getItem("twoFACode");
-
-    if (inputCode === storedCode) {
-        alert("Login successful!");
-        // Redirect to another page
-        // window.location.href = "dashboard.html";
-    } else {
-        alert("Invalid 2FA code. Please try again.");
-    }
-}
-
-function displayStoredCredentials() {
-    const storedUsername = localStorage.getItem("username");
-    const storedPassword = localStorage.getItem("password");
-
-    console.log("Stored Username:", storedUsername);
-    console.log("Stored Password:", storedPassword);
-}
-
-displayStoredCredentials();
