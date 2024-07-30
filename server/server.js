@@ -29,6 +29,8 @@ app.use(express.static(path.join(__dirname, '../client')));
 // Routes
 app.use('/auth', require('../routes/auth'));
 
+mongoose.set('debug', true);
+
 // MongoDB connection
 mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
     useNewUrlParser: true,
